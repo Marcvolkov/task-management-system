@@ -1,14 +1,12 @@
 // src/utils/axios.js - Конфигурация Axios для API запросов
 import axios from 'axios';
 
-// Определяем базовый URL в зависимости от среды
+// ✅ НОВЫЙ КОД
 const getBaseURL = () => {
-  // В development используем локальный сервер
   if (process.env.NODE_ENV === 'development') {
-    return process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+    return process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
   }
-  // В production используем deployed backend
-  return process.env.REACT_APP_API_URL || 'https://task-management-system-4q03.onrender.com/api';
+  return process.env.REACT_APP_API_URL || 'https://task-management-api-neqi.onrender.com/api';
 };
 
 // Создаем инстанс axios с базовой конфигурацией

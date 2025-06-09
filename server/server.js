@@ -51,32 +51,32 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable X-RateLimit-* headers
 });
 
-// CORS configuration for separate frontend deployment
+// ✅ НОВЫЙ КОД
 const corsOptions = {
   origin: function (origin, callback) {
-    // In development, allow all origins including localhost
+    // В development разрешаем все origin
     if (process.env.NODE_ENV === 'development') {
       callback(null, true);
       return;
     }
     
-    // Production: allow specific origins including Render and Vercel
+    // Production: разрешенные origins
     const allowedOrigins = [
-      'http://localhost:3000', // Local development
-      'http://localhost:3001',
-      process.env.FRONTEND_URL, // Main frontend URL (set in env)
-      'https://task-management-frontend.onrender.com', // Render deployment
-      /^https:\/\/task-management-.*\.vercel\.app$/, // Vercel preview deployments
-      ...(process.env.ALLOWED_ORIGINS?.split(',') || [])
+      'http://localhost:3000',
+      'http://localhost:3001', 
+      'https://task-management-system-delta-five.vercel.app', // ВАШ АКТУАЛЬНЫЙ FRONTEND URL
+      process.env.FRONTEND_URL,
+      /^https:\/\/task-management-.*\.vercel\.app$/, // Все Vercel preview deployments
+      /^https:\/\/.*\.vercel\.app$/ // Общий паттерн для Vercel
     ].filter(Boolean);
     
-    // Allow requests with no origin (mobile apps, curl, Postman, etc.)
+    // Разрешаем запросы без origin (mobile apps, Postman, etc.)
     if (!origin) {
       callback(null, true);
       return;
     }
     
-    // Check string origins
+    // Проверяем строковые origins
     const stringOrigins = allowedOrigins.filter(o => typeof o === 'string');
     if (stringOrigins.includes(origin.trim())) {
       console.log(`✅ CORS allowed origin: ${origin}`);
@@ -84,7 +84,7 @@ const corsOptions = {
       return;
     }
     
-    // Check regex origins (for Vercel deployments)
+    // Проверяем regex origins
     const regexOrigins = allowedOrigins.filter(o => o instanceof RegExp);
     for (const regex of regexOrigins) {
       if (regex.test(origin)) {
@@ -95,7 +95,6 @@ const corsOptions = {
     }
     
     console.warn(`❌ CORS blocked request from origin: ${origin}`);
-    console.warn(`🔍 Allowed origins: ${stringOrigins.join(', ')}, Vercel pattern: *.vercel.app`);
     callback(new Error(`Not allowed by CORS policy: ${origin}`));
   },
   credentials: true,
