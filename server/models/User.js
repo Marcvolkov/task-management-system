@@ -1,5 +1,5 @@
 // models/User.js - Модель для работы с пользователями
-const db = require('../config/database');
+const { pool } = require('../config/database');
 const bcrypt = require('bcryptjs');
 
 class User {
@@ -18,7 +18,7 @@ class User {
     `;
     
     try {
-      const result = await db.query(query, [username, email, hashedPassword]);
+      const result = await pool.query(query, [username, email, hashedPassword]);
       return result.rows[0];
     } catch (error) {
       // Обработка ошибок уникальности
@@ -36,16 +36,16 @@ class User {
 
   // Поиск пользователя по email
   static async findByEmail(email) {
-  // Make email comparison case-insensitive
-  const query = 'SELECT * FROM users WHERE LOWER(email) = LOWER($1)';
-  const result = await db.query(query, [email]);
-  return result.rows[0];
-}
+    // Make email comparison case-insensitive
+    const query = 'SELECT * FROM users WHERE LOWER(email) = LOWER($1)';
+    const result = await pool.query(query, [email]);
+    return result.rows[0];
+  }
 
   // Поиск пользователя по ID
   static async findById(id) {
     const query = 'SELECT id, username, email, created_at FROM users WHERE id = $1';
-    const result = await db.query(query, [id]);
+    const result = await pool.query(query, [id]);
     return result.rows[0];
   }
 
@@ -94,7 +94,7 @@ class User {
     `;
     
     try {
-      const result = await db.query(query, values);
+      const result = await pool.query(query, values);
       return result.rows[0];
     } catch (error) {
       if (error.code === '23505') {
@@ -119,14 +119,14 @@ class User {
       RETURNING id, username, email
     `;
     
-    const result = await db.query(query, [hashedPassword, id]);
+    const result = await pool.query(query, [hashedPassword, id]);
     return result.rows[0];
   }
 
   // Удаление пользователя
   static async delete(id) {
     const query = 'DELETE FROM users WHERE id = $1 RETURNING id';
-    const result = await db.query(query, [id]);
+    const result = await pool.query(query, [id]);
     return result.rows[0];
   }
 }
