@@ -45,7 +45,7 @@ const LoginForm = () => {
       return;
     }
 
-    dispatch(login({ email, password }));
+    dispatch(login({ email: email.toLowerCase(), password }));
   };
 
   if (isLoading) {

@@ -62,7 +62,7 @@ const RegisterForm = () => {
       return;
     }
 
-    dispatch(register({ username, email, password }));
+    dispatch(register({ username, email: email.toLowerCase(), password }));
   };
 
   if (isLoading) {
