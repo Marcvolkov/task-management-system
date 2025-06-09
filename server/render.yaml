@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: task-management-system
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true  # Render сгенерирует автоматически
+      - key: JWT_EXPIRE
+        value: 7d
+
+databases:
+  - name: task-management-db
+    databaseName: task_management
+    user: task_user
+    plan: starter

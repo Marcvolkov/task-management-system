@@ -1,0 +1,80 @@
+/* src/index.css - Глобальные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  .min-vh-80 {
+    min-height: 80vh;
+  }
+  
+  /* Task priority colors */
+  .priority-high {
+    border-left: 4px solid #dc3545;
+  }
+  
+  .priority-medium {
+    border-left: 4px solid #ffc107;
+  }
+  
+  .priority-low {
+    border-left: 4px solid #28a745;
+  }
+  
+  /* Task status badges */
+  .status-pending {
+    background-color: #6c757d;
+  }
+  
+  .status-in_progress {
+    background-color: #007bff;
+  }
+  
+  .status-completed {
+    background-color: #28a745;
+  }
+  
+  /* Animations */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

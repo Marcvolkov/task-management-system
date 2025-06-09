@@ -1,0 +1,20 @@
+{
+  "name": "task-management-system",
+  "version": "1.0.0",
+  "description": "Full-stack Task Management System - Split deployment (Backend: Render, Frontend: Vercel)",
+  "private": true,
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm start",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:all": "node scripts/install-all.js",
+    "setup-db": "cd server && npm run setup-db",
+    "test:db": "cd server && npm run test-db",
+    "test:deployment": "node scripts/test-deployment.js"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
