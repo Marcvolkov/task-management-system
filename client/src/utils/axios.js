@@ -3,7 +3,11 @@ import axios from 'axios';
 
 // Определяем базовый URL в зависимости от среды
 const getBaseURL = () => {
-  // Используем backend URL из переменной окружения
+  // В development используем локальный сервер
+  if (process.env.NODE_ENV === 'development') {
+    return process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+  }
+  // В production используем deployed backend
   return process.env.REACT_APP_API_URL || 'https://task-management-system-4q03.onrender.com/api';
 };
 
