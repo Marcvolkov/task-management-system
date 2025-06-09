@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const rateLimit = require('express-rate-limit');
 
 // Загружаем переменные окружения из .env файла
 dotenv.config();
@@ -37,6 +38,19 @@ const setupDatabase = require('./setup-database');
 // Создаем Express приложение
 const app = express();
 
+// Rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 минут
+  max: 100, // лимит запросов на IP
+  message: {
+    error: 'Too many requests',
+    message: 'Rate limit exceeded. Try again later.',
+    retryAfter: '15 minutes'
+  },
+  standardHeaders: true, // Return rate limit info in headers
+  legacyHeaders: false, // Disable X-RateLimit-* headers
+});
+
 // CORS configuration for separate frontend deployment
 const corsOptions = {
   origin: function (origin, callback) {
@@ -46,12 +60,13 @@ const corsOptions = {
       return;
     }
     
-    // Production: allow specific origins including Vercel
+    // Production: allow specific origins including Render and Vercel
     const allowedOrigins = [
       'http://localhost:3000', // Local development
       'http://localhost:3001',
       process.env.FRONTEND_URL, // Main frontend URL (set in env)
-      /^https:\/\/.*\.vercel\.app$/, // All Vercel preview deployments
+      'https://task-management-frontend.onrender.com', // Render deployment
+      /^https:\/\/task-management-.*\.vercel\.app$/, // Vercel preview deployments
       ...(process.env.ALLOWED_ORIGINS?.split(',') || [])
     ].filter(Boolean);
     
@@ -91,6 +106,9 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions)); // Разрешаем запросы с frontend
+
+// Apply rate limiting to API routes
+app.use('/api/', limiter);
 
 // JSON parsing with error handling
 app.use(express.json({
