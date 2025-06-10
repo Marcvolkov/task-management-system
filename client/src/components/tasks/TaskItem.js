@@ -8,7 +8,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
-  const { } = useTheme();
+  useTheme();
   const { selectedTasks } = useSelector((state) => state.tasks);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
