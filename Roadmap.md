@@ -31,10 +31,10 @@ This roadmap outlines the planned design enhancements for the task management sy
 - [x] Add search functionality in header
 
 ### 5. Task Management Components
-- [ ] Redesign TaskItem with modern card layout
-- [ ] Add hover effects and smooth transitions
+- [x] Redesign TaskItem with modern card layout
+- [x] Add hover effects and smooth transitions
 - [ ] Implement drag-and-drop visual feedback
-- [ ] Create priority and status visual indicators
+- [x] Create priority and status visual indicators
 
 ### 6. Authentication Forms
 - [ ] Style LoginForm with modern glass-like design
