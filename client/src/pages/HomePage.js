@@ -56,9 +56,6 @@ const HomePage = () => {
                     Productivity
                   </span>
                 </h1>
-                <p className="lead mb-4 text-white opacity-75" style={{ fontSize: '1.25rem' }}>
-                  Experience the next generation of task management. Organize, prioritize, and accomplish your goals with intelligent features and beautiful design.
-                </p>
                 
                 {user ? (
                   <Link to="/dashboard" className="text-decoration-none">

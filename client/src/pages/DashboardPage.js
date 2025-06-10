@@ -88,9 +88,7 @@ const DashboardPage = () => {
                 </div>
               </div>
               
-              <div className="card-modern p-0" style={{ 
-                background: 'var(--surface-color)',
-                border: `1px solid var(--border-color)`,
+              <div className="glass-card p-4 hover-lift" style={{ 
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden'
               }}>
