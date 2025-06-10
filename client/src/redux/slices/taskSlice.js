@@ -136,6 +136,23 @@ const taskSlice = createSlice({
     clearSelection: (state) => {
       state.selectedTasks = [];
     },
+    updateStatsFromTasks: (state) => {
+      if (state.tasks.length > 0) {
+        const total = state.tasks.length;
+        const pending = state.tasks.filter(task => task.status === 'pending').length;
+        const in_progress = state.tasks.filter(task => task.status === 'in_progress').length;
+        const completed = state.tasks.filter(task => task.status === 'completed').length;
+        const high_priority = state.tasks.filter(task => task.priority === 'high').length;
+        
+        state.stats = {
+          total: total.toString(),
+          pending: pending.toString(),
+          in_progress: in_progress.toString(),
+          completed: completed.toString(),
+          high_priority: high_priority.toString()
+        };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -147,6 +164,23 @@ const taskSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.tasks = action.payload.tasks;
+        
+        // Автоматически обновляем статистику
+        if (state.tasks.length > 0) {
+          const total = state.tasks.length;
+          const pending = state.tasks.filter(task => task.status === 'pending').length;
+          const in_progress = state.tasks.filter(task => task.status === 'in_progress').length;
+          const completed = state.tasks.filter(task => task.status === 'completed').length;
+          const high_priority = state.tasks.filter(task => task.priority === 'high').length;
+          
+          state.stats = {
+            total: total.toString(),
+            pending: pending.toString(),
+            in_progress: in_progress.toString(),
+            completed: completed.toString(),
+            high_priority: high_priority.toString()
+          };
+        }
       })
       .addCase(getTasks.rejected, (state, action) => {
         state.isLoading = false;
@@ -162,6 +196,21 @@ const taskSlice = createSlice({
         state.isSuccess = true;
         state.tasks.unshift(action.payload.task);
         state.message = 'Task created successfully';
+        
+        // Автоматически обновляем статистику
+        const total = state.tasks.length;
+        const pending = state.tasks.filter(task => task.status === 'pending').length;
+        const in_progress = state.tasks.filter(task => task.status === 'in_progress').length;
+        const completed = state.tasks.filter(task => task.status === 'completed').length;
+        const high_priority = state.tasks.filter(task => task.priority === 'high').length;
+        
+        state.stats = {
+          total: total.toString(),
+          pending: pending.toString(),
+          in_progress: in_progress.toString(),
+          completed: completed.toString(),
+          high_priority: high_priority.toString()
+        };
       })
       .addCase(createTask.rejected, (state, action) => {
         state.isLoading = false;
@@ -178,6 +227,21 @@ const taskSlice = createSlice({
           state.tasks[index] = action.payload.task;
         }
         state.message = 'Task updated successfully';
+        
+        // Автоматически обновляем статистику
+        const total = state.tasks.length;
+        const pending = state.tasks.filter(task => task.status === 'pending').length;
+        const in_progress = state.tasks.filter(task => task.status === 'in_progress').length;
+        const completed = state.tasks.filter(task => task.status === 'completed').length;
+        const high_priority = state.tasks.filter(task => task.priority === 'high').length;
+        
+        state.stats = {
+          total: total.toString(),
+          pending: pending.toString(),
+          in_progress: in_progress.toString(),
+          completed: completed.toString(),
+          high_priority: high_priority.toString()
+        };
       })
       // Delete task
       .addCase(deleteTask.fulfilled, (state, action) => {
@@ -187,6 +251,21 @@ const taskSlice = createSlice({
           (id) => id !== action.payload
         );
         state.message = 'Task deleted successfully';
+        
+        // Автоматически обновляем статистику
+        const total = state.tasks.length;
+        const pending = state.tasks.filter(task => task.status === 'pending').length;
+        const in_progress = state.tasks.filter(task => task.status === 'in_progress').length;
+        const completed = state.tasks.filter(task => task.status === 'completed').length;
+        const high_priority = state.tasks.filter(task => task.priority === 'high').length;
+        
+        state.stats = {
+          total: total.toString(),
+          pending: pending.toString(),
+          in_progress: in_progress.toString(),
+          completed: completed.toString(),
+          high_priority: high_priority.toString()
+        };
       })
       // Get stats
       .addCase(getStats.fulfilled, (state, action) => {
@@ -210,9 +289,24 @@ const taskSlice = createSlice({
         });
         state.selectedTasks = [];
         state.message = 'Tasks updated successfully';
+        
+        // Автоматически обновляем статистику
+        const total = state.tasks.length;
+        const pending = state.tasks.filter(task => task.status === 'pending').length;
+        const in_progress = state.tasks.filter(task => task.status === 'in_progress').length;
+        const completed = state.tasks.filter(task => task.status === 'completed').length;
+        const high_priority = state.tasks.filter(task => task.priority === 'high').length;
+        
+        state.stats = {
+          total: total.toString(),
+          pending: pending.toString(),
+          in_progress: in_progress.toString(),
+          completed: completed.toString(),
+          high_priority: high_priority.toString()
+        };
       });
   },
 });
 
-export const { reset, setFilters, setSearchQuery, toggleTaskSelection, clearSelection } = taskSlice.actions;
+export const { reset, setFilters, setSearchQuery, toggleTaskSelection, clearSelection, updateStatsFromTasks } = taskSlice.actions;
 export default taskSlice.reducer;

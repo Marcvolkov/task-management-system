@@ -3,15 +3,25 @@ import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTasks, FaClock, FaCheckCircle, FaExclamationTriangle, FaPlay } from 'react-icons/fa';
-import { getStats } from '../../redux/slices/taskSlice';
+import { getStats, updateStatsFromTasks } from '../../redux/slices/taskSlice';
 
 const TaskStats = () => {
   const dispatch = useDispatch();
-  const { stats } = useSelector((state) => state.tasks);
+  const { stats, tasks } = useSelector((state) => state.tasks);
 
   useEffect(() => {
-    dispatch(getStats());
-  }, [dispatch]);
+    // Загружаем статистику с сервера только при первом рендере
+    if (!stats) {
+      dispatch(getStats());
+    }
+  }, [dispatch, stats]);
+
+  // Обновляем статистику в реальном времени при изменении задач
+  useEffect(() => {
+    if (tasks && tasks.length >= 0) {
+      dispatch(updateStatsFromTasks());
+    }
+  }, [tasks, dispatch]);
 
   if (!stats) {
     return null;
