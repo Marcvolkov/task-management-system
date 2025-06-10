@@ -37,10 +37,10 @@ This roadmap outlines the planned design enhancements for the task management sy
 - [x] Create priority and status visual indicators
 
 ### 6. Authentication Forms
-- [ ] Style LoginForm with modern glass-like design
-- [ ] Add social login buttons (GitHub, Google)
-- [ ] Implement form validation animations
-- [ ] Create consistent form styling across all auth forms
+- [x] Style LoginForm with modern glass-like design
+- [x] Add social login buttons (GitHub, Google)
+- [x] Implement form validation animations
+- [x] Create consistent form styling across all auth forms
 
 ### 7. Analytics & Statistics
 - [ ] Add visual progress indicators to TaskStats
