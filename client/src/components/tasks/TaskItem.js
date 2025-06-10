@@ -1,12 +1,14 @@
 // src/components/tasks/TaskItem.js - Компонент отдельной задачи
 import React, { useState } from 'react';
-import { Card, Badge, Button, Form, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form } from 'react-bootstrap';
 import { FaEdit, FaTrash, FaCheck, FaTimes, FaClock, FaCheckCircle } from 'react-icons/fa';
 import { updateTask, deleteTask, toggleTaskSelection } from '../../redux/slices/taskSlice';
+import { useTheme } from '../../contexts/ThemeContext'; // Import useTheme
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
+  const { theme } = useTheme();
   const { selectedTasks } = useSelector((state) => state.tasks);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
@@ -95,130 +97,135 @@ const TaskItem = ({ task }) => {
 
   if (isEditing) {
     return (
-      <Card className={`mb-3 shadow-sm priority-${task.priority}`}>
-        <Card.Body>
-          <Form>
-            <Form.Group className="mb-2">
-              <Form.Control
-                type="text"
-                value={editData.title}
-                onChange={(e) => setEditData({ ...editData, title: e.target.value })}
-                placeholder="Task title"
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Control
-                as="textarea"
-                rows={2}
-                value={editData.description}
-                onChange={(e) => setEditData({ ...editData, description: e.target.value })}
-                placeholder="Task description"
-              />
-            </Form.Group>
-            <div className="d-flex gap-2 mb-2">
-              <Form.Select
-                size="sm"
-                value={editData.status}
-                onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-              >
-                <option value="pending">Pending</option>
-                <option value="in_progress">In Progress</option>
-                <option value="completed">Completed</option>
-              </Form.Select>
-              <Form.Select
-                size="sm"
-                value={editData.priority}
-                onChange={(e) => setEditData({ ...editData, priority: e.target.value })}
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </Form.Select>
-            </div>
-            <div className="d-flex gap-2">
-              <Button size="sm" variant="success" onClick={handleSaveEdit}>
-                <FaCheck /> Save
-              </Button>
-              <Button size="sm" variant="secondary" onClick={handleCancelEdit}>
-                <FaTimes /> Cancel
-              </Button>
-            </div>
-          </Form>
-        </Card.Body>
-      </Card>
+      <div className={`mb-3 p-3 card-modern priority-${task.priority}`}>
+        <Form>
+          <Form.Group className="mb-2">
+            <Form.Control
+              type="text"
+              value={editData.title}
+              onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+              placeholder="Task title"
+              style={{backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', border: '1px solid var(--border-color)'}}
+            />
+          </Form.Group>
+          <Form.Group className="mb-2">
+            <Form.Control
+              as="textarea"
+              rows={2}
+              value={editData.description}
+              onChange={(e) => setEditData({ ...editData, description: e.target.value })}
+              placeholder="Task description"
+              style={{backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', border: '1px solid var(--border-color)'}}
+            />
+          </Form.Group>
+          <div className="d-flex gap-2 mb-2">
+            <Form.Select
+              size="sm"
+              value={editData.status}
+              onChange={(e) => setEditData({ ...editData, status: e.target.value })}
+              style={{backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', border: '1px solid var(--border-color)'}}
+            >
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </Form.Select>
+            <Form.Select
+              size="sm"
+              value={editData.priority}
+              onChange={(e) => setEditData({ ...editData, priority: e.target.value })}
+              style={{backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', border: '1px solid var(--border-color)'}}
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </Form.Select>
+          </div>
+          <div className="d-flex gap-2">
+            <button type="button" className="btn-gradient" onClick={handleSaveEdit}>
+              <FaCheck /> Save
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={handleCancelEdit}>
+              <FaTimes /> Cancel
+            </button>
+          </div>
+        </Form>
+      </div>
     );
   }
 
   return (
-    <Card className={`mb-3 shadow-sm priority-${task.priority} ${isSelected ? 'border-primary' : ''}`}>
-      <Card.Body>
+    <div className={`card-modern hover-lift mb-3 priority-${task.priority} ${isSelected ? 'gradient-border' : ''}`}>
+      <div className="p-3">
         <div className="d-flex align-items-start">
           <Form.Check
             type="checkbox"
             checked={isSelected}
             onChange={handleSelectToggle}
-            className="me-3"
+            className="me-3 mt-1"
           />
           
           <div className="flex-grow-1">
             <div className="d-flex justify-content-between align-items-start mb-2">
-              <h5 className="mb-1">{task.title}</h5>
+              <h5 className="mb-1" style={{color: 'var(--text-primary)'}}>{task.title}</h5>
               <div className="d-flex gap-2">
-                <Badge bg={getStatusVariant(task.status)}>
+                <span className={`badge status-${task.status.toLowerCase()}`}>
                   {getStatusIcon(task.status)} {task.status.replace('_', ' ')}
-                </Badge>
-                <Badge bg={getPriorityVariant(task.priority)}>
+                </span>
+                <span className={`badge priority-badge-${task.priority.toLowerCase()}`}>
                   {task.priority}
-                </Badge>
+                </span>
               </div>
             </div>
             
             {task.description && (
-              <p className="text-muted mb-2">{task.description}</p>
+              <p className="mb-2" style={{color: 'var(--text-secondary)'}}>{task.description}</p>
             )}
             
             <div className="d-flex justify-content-between align-items-center">
-              <ButtonGroup size="sm">
+               <div className="btn-group" role="group">
                 {task.status !== 'pending' && (
-                  <Button
-                    variant="outline-secondary"
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-outline-secondary"
                     onClick={() => handleStatusChange('pending')}
                     title="Mark as Pending"
                   >
                     <FaClock />
-                  </Button>
+                  </button>
                 )}
                 {task.status !== 'in_progress' && (
-                  <Button
-                    variant="outline-primary"
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-outline-primary"
                     onClick={() => handleStatusChange('in_progress')}
                     title="Mark as In Progress"
                   >
                     <FaClock />
-                  </Button>
+                  </button>
                 )}
                 {task.status !== 'completed' && (
-                  <Button
-                    variant="outline-success"
+                  <button
+                   type="button"
+                    className="btn btn-sm btn-outline-success"
                     onClick={() => handleStatusChange('completed')}
                     title="Mark as Completed"
                   >
                     <FaCheckCircle />
-                  </Button>
+                  </button>
                 )}
-              </ButtonGroup>
+              </div>
               
               <div className="d-flex gap-2">
-                <Button size="sm" variant="outline-primary" onClick={handleEdit}>
+                <button className="btn btn-sm btn-outline-primary" onClick={handleEdit}>
                   <FaEdit />
-                </Button>
-                <Button size="sm" variant="outline-danger" onClick={handleDelete}>
+                </button>
+                <button className="btn btn-sm btn-outline-danger" onClick={handleDelete}>
                   <FaTrash />
-                </Button>
+                </button>
               </div>
             </div>
             
-            <small className="text-muted">
+            <small className="mt-2 d-block" style={{color: 'var(--text-muted)'}}>
               Created: {new Date(task.created_at).toLocaleDateString()}
               {task.completed_at && (
                 <> | Completed: {new Date(task.completed_at).toLocaleDateString()}</>
@@ -226,8 +233,8 @@ const TaskItem = ({ task }) => {
             </small>
           </div>
         </div>
-      </Card.Body>
-    </Card>
+      </div>
+    </div>
   );
 };
 

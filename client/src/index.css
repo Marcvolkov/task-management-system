@@ -135,6 +135,34 @@ body {
   font-size: 0.75rem;
   font-weight: 500;
 }
+
+/* Priority Badges */
+.priority-badge-high {
+  background: var(--error-gradient);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.priority-badge-medium {
+  background: var(--warning-gradient);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.priority-badge-low {
+  background: var(--success-gradient);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
   
 /* Animations */
 .fade-in {
