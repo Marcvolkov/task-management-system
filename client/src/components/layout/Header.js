@@ -347,7 +347,16 @@ const Header = () => {
                       style={{
                         color: 'var(--text-primary)',
                         borderRadius: 'var(--radius-md)',
-                        margin: '0.25rem'
+                        margin: '0.25rem',
+                        transition: 'all var(--transition-base)'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'var(--primary-color)';
+                        e.target.style.color = 'white';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'transparent';
+                        e.target.style.color = 'var(--text-primary)';
                       }}
                     >
                       <FaUser className="me-2" />
@@ -359,7 +368,16 @@ const Header = () => {
                       style={{
                         color: 'var(--text-primary)',
                         borderRadius: 'var(--radius-md)',
-                        margin: '0.25rem'
+                        margin: '0.25rem',
+                        transition: 'all var(--transition-base)'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'var(--primary-color)';
+                        e.target.style.color = 'white';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'transparent';
+                        e.target.style.color = 'var(--text-primary)';
                       }}
                     >
                       <FaCog className="me-2" />

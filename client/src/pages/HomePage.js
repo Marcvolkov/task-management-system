@@ -109,7 +109,7 @@ const HomePage = () => {
                   border: '1px solid rgba(255, 255, 255, 0.3)'
                 }}>
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h5 className="mb-0 fw-bold">Dashboard Preview</h5>
+                    <h5 className="mb-0 fw-bold" style={{ color: '#000' }}>Dashboard Preview</h5>
                     <button style={{
                       background: 'var(--primary-gradient)',
                       border: 'none',
@@ -173,7 +173,7 @@ const HomePage = () => {
                       background: 'rgba(102, 126, 234, 0.1)',
                       borderLeft: '4px solid var(--primary-color)'
                     }}>
-                      <span style={{ fontSize: '0.9rem' }}>Complete project proposal</span>
+                      <span style={{ fontSize: '0.9rem', color: '#000' }}>Complete project proposal</span>
                       <span className="status-in_progress">In Progress</span>
                     </div>
                   </div>
@@ -182,7 +182,7 @@ const HomePage = () => {
                       background: 'rgba(17, 153, 142, 0.1)',
                       borderLeft: '4px solid var(--success-color)'
                     }}>
-                      <span style={{ fontSize: '0.9rem' }}>Review team feedback</span>
+                      <span style={{ fontSize: '0.9rem', color: '#000' }}>Review team feedback</span>
                       <span className="status-completed">Completed</span>
                     </div>
                   </div>
@@ -191,7 +191,7 @@ const HomePage = () => {
                       background: 'rgba(247, 183, 51, 0.1)',
                       borderLeft: '4px solid var(--warning-color)'
                     }}>
-                      <span style={{ fontSize: '0.9rem' }}>Schedule client meeting</span>
+                      <span style={{ fontSize: '0.9rem', color: '#000' }}>Schedule client meeting</span>
                       <span className="priority-badge-high">High</span>
                     </div>
                   </div>
@@ -244,7 +244,7 @@ const HomePage = () => {
                   Smart Task Management
                 </h4>
                 <p style={{ color: 'var(--text-secondary)' }}>
-                  Create, organize, and prioritize tasks with AI-powered suggestions and intelligent categorization
+                  Create, organize, and prioritize tasks with smart suggestions and intelligent categorization
                 </p>
               </div>
             </Col>

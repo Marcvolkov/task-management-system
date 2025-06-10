@@ -223,5 +223,5 @@ PostgreSQL documentation
 Bootstrap components
 
 
-Live Demo: https://task-manager-frontend-gamma-nine.vercel.app/
-API URL: https://task-manager-api-76wn.onrender.com
+Live Demo: https://task-management-system-delta-five.vercel.app/dashboard
+API URL: https://task-management-api-neqi.onrender.com
