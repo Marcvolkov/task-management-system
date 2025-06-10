@@ -61,6 +61,7 @@ const Header = () => {
 
   return (
     <Navbar 
+      variant={isDark ? 'dark' : 'light'}
       expand="lg" 
       sticky="top" 
       style={{
@@ -77,7 +78,6 @@ const Header = () => {
           as={Link} 
           to="/" 
           className="d-flex align-items-center fw-bold"
-          style={{ color: 'var(--text-primary)' }}
         >
           <div style={{
             background: 'var(--primary-gradient)',
@@ -98,7 +98,6 @@ const Header = () => {
           style={{
             border: 'none',
             boxShadow: 'none',
-            color: 'var(--text-primary)'
           }}
         />
         
@@ -112,7 +111,6 @@ const Header = () => {
                   to="/dashboard"
                   className="fw-semibold mx-1"
                   style={{ 
-                    color: 'var(--text-primary)',
                     borderRadius: 'var(--radius-md)',
                     padding: '0.5rem 1rem',
                     transition: 'all var(--transition-base)'
@@ -300,7 +298,6 @@ const Header = () => {
                       margin: '0 0.5rem',
                       cursor: 'pointer',
                       transition: 'all var(--transition-base)',
-                      color: 'var(--text-primary)'
                     }}
                     onMouseEnter={(e) => {
                       e.target.style.borderColor = 'var(--primary-color)';
@@ -417,7 +414,6 @@ const Header = () => {
                   to="/login"
                   className="fw-semibold mx-1"
                   style={{ 
-                    color: 'var(--text-primary)',
                     borderRadius: 'var(--radius-md)',
                     padding: '0.5rem 1rem',
                     transition: 'all var(--transition-base)'
